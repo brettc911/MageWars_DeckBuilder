@@ -9,7 +9,19 @@ import { Link } from 'react-router-dom';
 // __________________________________________________________
 
 const Header = styled.div`
-  background: white;
+  height: 100px;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ul{
+    display: flex;
+    flex-direction: row;
+  }
+  a{
+    color: #fff;
+    padding: 50px;
+  }
 `
 
 
@@ -21,8 +33,10 @@ class Navigation extends Component {
         <Header>
           <ul>
             <li><Link to='/'>Home</Link></li>
-            <li><Link to='/create'>Create Cards</Link></li>
-            <li><Link to='/cardManager'>Manage Cards</Link></li>
+            <li><Link to='/cards'>Cards</Link></li>
+            <li><Link to='/decks'>Decks</Link></li>
+            <li><Link to='/builder'>Builder</Link></li>
+            <li><Link to='/login'>Login</Link></li>
           </ul>
         </Header>
         {this.props.children}
