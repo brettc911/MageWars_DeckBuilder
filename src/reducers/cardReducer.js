@@ -1,17 +1,17 @@
-import { FETCH_GROUPS } from '../actions/types'
+import { FETCH_CARDS } from '../actions/types'
 
 
 const INITIAL_STATE = {
 
-  cards: []
+  cardList: []
 
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type){
 
-    case FETCH_GROUPS:
-      return {...state, cards: action.payload}
+    case FETCH_CARDS:
+      return {...state, cardList: action.payload}
 
     default:
       return state;

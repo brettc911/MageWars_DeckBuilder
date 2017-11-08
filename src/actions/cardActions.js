@@ -1,5 +1,5 @@
 import {
-  FETCH_DECKS
+  FETCH_CARDS
 
 } from './types'
 
@@ -12,10 +12,10 @@ export const fetchCards = () => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
+      console.log(data.results);
       return dispatch({
         type: FETCH_CARDS,
-        payload: data
+        payload: data.results
       })
     })
   }
