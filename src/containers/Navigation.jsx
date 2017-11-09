@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import '../styles/meyers_reset.css'
 import styled from 'styled-components'
-// Import Router
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
+
+// Redux Actions:
+import { fetchCards } from '../actions'
 
 // BEGIN STYING
 // __________________________________________________________
@@ -20,12 +23,16 @@ const Header = styled.div`
   }
   a{
     color: #fff;
-    padding: 50px;
+    margin: 50px;
   }
 `
 
 
 class Navigation extends Component {
+
+  componentWillMount(){
+    this.props.fetchCards()
+  }
 
   render() {
     return (
@@ -45,4 +52,8 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation;
+const mapStateToProps = state => {
+  return {cards: state.cards.cardlist}
+}
+
+export default connect (mapStateToProps, { fetchCards })(Navigation)
