@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 const Center = styled.td`
   text-align: center;
+  text-transform: capitalize;
+
 `
 
 class Table extends Component {
@@ -14,6 +16,8 @@ class Table extends Component {
           <td>{card.cardName}</td>
           <td>{card.primaryType}</td>
           <Center>{card.manaCost}</Center>
+          <Center>{card.action}</Center>
+
         </tr>
       )
     })
@@ -28,6 +32,7 @@ class Table extends Component {
             <th>Card Name</th>
             <th>Primary Type</th>
             <th>Mana Cost</th>
+            <th>Action</th>
           </tr>
           {this.renderRow()}
         </tbody>

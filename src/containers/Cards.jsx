@@ -9,8 +9,24 @@ import { fetchCards } from '../actions'
 // Import Components
 import Table from '../components/Table'
 
+// Import images
+import mw_background_1 from '../styles/images/mw_background_1.jpg'
+
 // BEGIN STYING
-// __________________________________________________________
+// _________________________________________________________
+const Div = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  background: url(${mw_background_1});
+  background-position: center;
+  opacity: 0.25;
+  filter: blur(6px);
+`
+
 const Search = styled.div`
   display: flex;
   flex-direction: row;
@@ -18,10 +34,15 @@ const Search = styled.div`
   align-items: center;
   padding: 20px;
   input{
-    border: 1px solid #A70014;
-    height: 20px;
+    padding: 0 10px;
+    font-size: 16px;
+    height: 30px;
     margin-left: 5px;
     width: 230px;
+    border: 1px solid #A70014;
+    &:focus{
+      outline: none;
+    }
   }
 `
 const H1 = styled.h1`
@@ -73,6 +94,7 @@ class Cards extends Component {
   render() {
     return (
       <div className='container'>
+        <Div></Div>
         <button onClick={this.clickme}>View State</button>
         <Search>
           <h1>Search:</h1>
