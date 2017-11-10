@@ -5,9 +5,6 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
-// Redux Actions:
-import { fetchCards } from '../actions'
-
 // BEGIN STYING
 // __________________________________________________________
 
@@ -30,10 +27,6 @@ const Header = styled.div`
 
 class Navigation extends Component {
 
-  componentWillMount(){
-    this.props.fetchCards()
-  }
-
   render() {
     return (
       <div>
@@ -52,8 +45,4 @@ class Navigation extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {cards: state.cards.cardlist}
-}
-
-export default connect (mapStateToProps, { fetchCards })(Navigation)
+export default Navigation
