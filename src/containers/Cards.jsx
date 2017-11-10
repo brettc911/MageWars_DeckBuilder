@@ -6,11 +6,9 @@ import styled from 'styled-components'
 
 // BEGIN STYING
 // __________________________________________________________
-const Td = styled.td`
-  padding: 0 20px;
-`
-const Tr = styled.tr`
-  padding: 0 20px;
+const Search = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 
 
@@ -24,9 +22,9 @@ class Cards extends Component {
 
         return (
           <tr key={i}>
-            <Td>{card.cardName}</Td>
-            <Td>{card.primaryType}</Td>
-            <Td>{card.manaCost}</Td>
+            <td>{card.cardName}</td>
+            <td>{card.primaryType}</td>
+            <td>{card.manaCost}</td>
           </tr>
         )
       })
@@ -36,9 +34,12 @@ class Cards extends Component {
 
   render() {
     return (
-      <div>
-        <button>Filter</button>
-        <table>
+      <div className='container'>
+        <Search>
+          <h1>Search:</h1>
+          <input/>
+        </Search>
+        <table className='primary-table'>
           <tbody>
             <tr>
               <th>Card Name</th>
