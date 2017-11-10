@@ -64,7 +64,7 @@ class Cards extends Component {
 
   searchData = (e) => {
     let newCards = this.state.allCards.filter((card) => {
-      return card.cardName.toLowerCase().indexOf(e.target.value) !== -1
+      return card.cardName.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
     })
     this.setState({ filteredCards: newCards })
   }
