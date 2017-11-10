@@ -34,7 +34,8 @@ class Cards extends Component {
   constructor(){
     super()
     this.state = {
-      cards: null
+      allCards: null,
+      filteredCards: null,
     }
   }
 
@@ -43,20 +44,29 @@ class Cards extends Component {
   }
 
   componentDidUpdate(){
-    if (this.state.cards == null) {
-      this.setState({ cards: this.props.cards })
+    if (this.state.allCards == null) {
+      this.setState({ allCards: this.props.cards })
+      this.setState({ filteredCards: this.props.cards })
     }
   }
 
   clickme = () => {
-    console.log(this.state.cards);
+    console.log('all cards', this.state.allCards);
+    console.log('filtered Cards', this.state.filteredCards);
   }
 
-  renderTable = () => {
-    if (this.state.cards !== null) {
-      return <Table cards={this.state.cards}/>
+  renderTable() {
+    if (this.state.allCards !== null) {
+      return <Table cards={this.state.filteredCards}/>
     }
     return <H1>Loading...</H1>
+  }
+
+  searchData = (e) => {
+    let newCards = this.state.allCards.filter((card) => {
+      return card.cardName.toLowerCase().indexOf(e.target.value) !== -1
+    })
+    this.setState({ filteredCards: newCards })
   }
 
 
@@ -66,7 +76,7 @@ class Cards extends Component {
         <button onClick={this.clickme}>View State</button>
         <Search>
           <h1>Search:</h1>
-          <input/>
+          <input onChange={this.searchData} placeholder='Search card name'/>
         </Search>
         {this.renderTable()}
       </div>

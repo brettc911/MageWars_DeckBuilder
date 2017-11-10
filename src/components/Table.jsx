@@ -5,8 +5,6 @@ const Center = styled.td`
   text-align: center;
 `
 
-
-
 class Table extends Component {
 
   renderRow() {
@@ -21,18 +19,6 @@ class Table extends Component {
     })
     return row
   }
-
-  // let children = [];
-  // if(this.props.children.length) {
-  //   children = this.props.children.map((child) => {
-  //
-  //     return <Child key={child.id} child={child} groupChild={true}/>
-  //   })
-  // return children;
-  // }
-
-
-
 
   render() {
     return (
