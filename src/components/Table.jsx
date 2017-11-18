@@ -17,6 +17,9 @@ class Table extends Component {
           <td>{card.primaryType}</td>
           <Center>{card.manaCost}</Center>
           <Center>{card.action}</Center>
+          <td>{card.schools.map((type, idea) => {
+            return (` ${type.name}: ${type.level}`)
+          })}</td>
 
         </tr>
       )
@@ -33,6 +36,7 @@ class Table extends Component {
             <th>Primary Type</th>
             <th>Mana Cost</th>
             <th>Action</th>
+            <th>School</th>
           </tr>
           {this.renderRow()}
         </tbody>
