@@ -1,9 +1,11 @@
 import { FETCH_DECKS } from '../actions/types'
+import { CREATE_DECK } from '../actions/types'
 
 
 const INITIAL_STATE = {
 
-  deckList: []
+  deckList: [],
+  currentDeck: {},
 
 }
 
@@ -12,6 +14,9 @@ export default (state = INITIAL_STATE, action) => {
 
     case FETCH_DECKS:
       return {...state, deckList: action.payload}
+
+    case CREATE_DECK:
+      return {...state, currentDeck: action.payload}
 
     default:
       return state;
