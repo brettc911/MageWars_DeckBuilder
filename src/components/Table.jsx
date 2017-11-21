@@ -9,11 +9,20 @@ const Center = styled.td`
 
 class Table extends Component {
 
+  addCard = (e) => {
+    this.props.cards.forEach(card => {
+      if (card._id === e.target.id) {
+        card.number = 1
+        console.log(card);
+      }
+    })
+  }
+
   renderRow() {
     let row = this.props.cards.map((card, i) => {
       return (
         <tr key={i}>
-          <td>{card.cardName}</td>
+          <td><button onClick={this.addCard} id={card._id}>+</button> {card.cardName}</td>
           <td>{card.primaryType}</td>
           <Center>{card.manaCost}</Center>
           <Center>{card.action}</Center>
