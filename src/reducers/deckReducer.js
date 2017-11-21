@@ -1,11 +1,16 @@
 import { FETCH_DECKS } from '../actions/types'
 import { CREATE_DECK } from '../actions/types'
+import { AUTO_SAVE } from '../actions/types'
 
 
 const INITIAL_STATE = {
 
   deckList: [],
-  currentDeck: {},
+  currentDeck: {
+    deckName: '',
+    mage: '',
+    cards: []
+  },
 
 }
 
@@ -16,6 +21,9 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, deckList: action.payload}
 
     case CREATE_DECK:
+      return {...state, currentDeck: action.payload}
+
+    case AUTO_SAVE:
       return {...state, currentDeck: action.payload}
 
     default:

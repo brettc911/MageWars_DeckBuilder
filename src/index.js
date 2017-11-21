@@ -28,7 +28,7 @@ ReactDOM.render(
         <Switch>
           <Navigation>
             <Route path ="/builder/edit" component={Builder} />
-            <Route path ="/builder" component={BuilderGateway} />
+            <Route exact path ="/builder" component={BuilderGateway} />
             <Route path ="/cards" component={Cards} />
             <Route path ="/decks" component={Decks} />
             <Route exact path ="/" component={Home} />

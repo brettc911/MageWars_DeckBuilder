@@ -1,8 +1,9 @@
 import {
   FETCH_DECKS,
-  CREATE_DECK
-
+  CREATE_DECK,
+  AUTO_SAVE
 } from './types'
+
 
 
 export const fetchDecks = () => {
@@ -23,9 +24,7 @@ export const fetchDecks = () => {
 }
 
 export const createDeck = (deck) => {
-
   let newDeck = JSON.stringify(deck);
-
   return (dispatch) => {
     fetch('https://secret-gorge-71512.herokuapp.com/api/deck', {
       method: 'POST',
@@ -38,7 +37,32 @@ export const createDeck = (deck) => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data.results);
+      console.log(data.result);
+      return dispatch({
+        type: CREATE_DECK,
+        payload: data.results
+      })
+    })
+  }
+}
+
+
+
+export const autoSave = (saveDeck, id) => {
+  let deck = JSON.stringify(saveDeck)
+  return (dispatch) => {
+    fetch(`https://secret-gorge-71512.herokuapp.com/api/deck/${id}`, {
+      method: 'POST',
+      body: deck,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+      // credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.result);
       return dispatch({
         type: CREATE_DECK,
         payload: data.results
