@@ -16,6 +16,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navigation from './containers/Navigation';
 import Home from './containers/Home';
 import Builder from './containers/Builder';
+import BuilderGateway from './components/BuilderGateway';
 import Cards from './containers/Cards';
 import Decks from './containers/Decks';
 
@@ -26,7 +27,8 @@ ReactDOM.render(
     <BrowserRouter>
         <Switch>
           <Navigation>
-            <Route path ="/builder" component={Builder} />
+            <Route path ="/builder/edit" component={Builder} />
+            <Route path ="/builder" component={BuilderGateway} />
             <Route path ="/cards" component={Cards} />
             <Route path ="/decks" component={Decks} />
             <Route exact path ="/" component={Home} />
