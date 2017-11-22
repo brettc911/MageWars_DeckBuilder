@@ -49,7 +49,6 @@ class BuilderGateway extends Component {
           <input onChange={this.handleDeckMageChange} /> <br></br>
           <Link to='/builder/edit'><Button onClick={this.createDeck}>Create new Deck!</Button></Link>
         </form>
-
       </div>
     )
   }

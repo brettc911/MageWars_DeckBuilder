@@ -4,6 +4,7 @@ import styled from 'styled-components'
 // Redux:
 import { connect } from 'react-redux'
 import cardReducer from '../reducers/cardReducer';
+import deckReducer from '../reducers/deckReducer';
 import { fetchCards } from '../actions'
 
 // Import Components
@@ -28,11 +29,17 @@ class Builder extends Component {
     this.state = {
       allCards: null,
       filteredCards: null,
+      currentDeck: {
+        deckName: '',
+        mage: '',
+        cards: []
+      }
     }
   }
 
   componentWillMount(){
     this.props.fetchCards()
+
   }
 
   componentDidUpdate(){
@@ -40,11 +47,17 @@ class Builder extends Component {
       this.setState({ allCards: this.props.cards })
       this.setState({ filteredCards: this.props.cards })
     }
+    if (this.state.currentDeck.deckName === '' && this.props.currentDeck !== 0) {
+      console.log('set state!');
+      this.setState({ currentDeck: this.props.currentDeck })
+    }
+
   }
 
   clickme = () => {
     console.log('all cards', this.state.allCards);
     console.log('filtered Cards', this.state.filteredCards);
+    console.log('current deck', this.state.currentDeck);
   }
 
 // Filter Functions:
@@ -61,6 +74,20 @@ class Builder extends Component {
     }
     return <H1>Loading...</H1>
   }
+// Deck info Functions:
+handleDeckNameChange = e => {
+  const newDeckName = () => {
+    return {...this.state.currentDeck, deckName: e.target.value}
+  }
+  this.setState({ currentDeck: newDeckName() })
+}
+
+  handleMageChange = e => {
+    const newMage = () => {
+      return {...this.state.currentDeck, mage: e.target.value}
+    }
+    this.setState({ currentDeck: newMage() })
+  }
 
   render() {
     return (
@@ -68,13 +95,21 @@ class Builder extends Component {
         <button onClick={this.clickme}>View State</button>
         <Filter searchData={this.searchData}/>
         {this.renderTable()}
-        <DeckInfo />
+        <DeckInfo
+          handleDeckNameChange={this.handleDeckNameChange}
+          handleMageChange={this.handleMageChange}
+          deckName={this.state.currentDeck.deckName}
+          mage={this.state.currentDeck.mage}
+        />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return {cards: state.cards.cardList}
+  return {
+    cards: state.cards.cardList,
+    currentDeck: state.decks.currentDeck
+  }
 }
 export default connect(mapStateToProps, { fetchCards })(Builder)

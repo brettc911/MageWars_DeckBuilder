@@ -40,7 +40,7 @@ export const createDeck = (deck) => {
       console.log(data.result);
       return dispatch({
         type: CREATE_DECK,
-        payload: data.results
+        payload: data.result
       })
     })
   }
@@ -65,7 +65,7 @@ export const autoSave = (saveDeck, id) => {
       console.log(data.result);
       return dispatch({
         type: CREATE_DECK,
-        payload: data.results
+        payload: data.result
       })
     })
   }

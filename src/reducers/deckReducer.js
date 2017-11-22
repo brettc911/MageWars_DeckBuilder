@@ -6,11 +6,7 @@ import { AUTO_SAVE } from '../actions/types'
 const INITIAL_STATE = {
 
   deckList: [],
-  currentDeck: {
-    deckName: '',
-    mage: '',
-    cards: []
-  },
+  currentDeck: 0,
 
 }
 

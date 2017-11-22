@@ -9,12 +9,28 @@ const Container = styled.div`
 
 class DeckInfo extends Component {
 
+  renderDeckInfo(){
+    return (
+        <Container>
+          <h1>Deck Info</h1>
+          <label>Deck Name</label>
+          <input onChange={this.props.handleDeckNameChange} value={this.props.deckName}/>
+          <label>Mage</label>
+          <input onChange={this.props.handleMageChange} value={this.props.mage} />
+        </Container>
+    )
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props !== nextProps) {
+      this.renderDeckInfo()
+    }
+  }
+
   render() {
     return (
       <div>
-        <Container>
-          <h1>Deck Info</h1>
-        </Container>
+        {this.renderDeckInfo()}
       </div>
     )
   }
