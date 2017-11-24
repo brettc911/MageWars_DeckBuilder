@@ -77,7 +77,7 @@ class Builder extends Component {
   addCard = e => {
     let targetCard = null
 
-    this.props.cards.map(card => {
+    this.props.cards.forEach(card => {
       if (card._id === e.target.id) {
         targetCard = card
         if (!targetCard.number) targetCard.number = 1
@@ -110,7 +110,27 @@ class Builder extends Component {
       }
       this.setState({ currentDeck: newDeck()})
     }
+  }
 
+  removeCard = e => {
+    let newCards = []
+
+    if (this.state.currentDeck.cards.length > 1){
+      newCards = this.state.currentDeck.cards.filter(card => e.target.id !== card._id)
+      let targetCard = this.state.currentDeck.cards.filter(card => e.target.id === card._id)
+      targetCard[0].number --
+      newCards.push(targetCard[0])
+
+    } else {
+      this.state.currentDeck.cards[0].number --
+      newCards.push(this.state.currentDeck.cards[0])
+    }
+
+    newCards = newCards.filter(card => card.number > 0)
+    const newDeck = () => {
+      return {...this.state.currentDeck, cards: newCards}
+    }
+    this.setState({ currentDeck: newDeck()})
   }
 
 
@@ -142,6 +162,7 @@ handleDeckNameChange = e => {
           deckName={this.state.currentDeck.deckName}
           mage={this.state.currentDeck.mage}
           cards={this.state.currentDeck.cards}
+          removeCard={this.removeCard}
         />
       </div>
     );

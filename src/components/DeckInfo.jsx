@@ -11,11 +11,11 @@ class DeckInfo extends Component {
 
   renderCards(){
     let cards = []
-    cards = this.props.cards.map(card => {
+    cards = this.props.cards.map((card,i) => {
       return(
-        <div>
-          <h1>Name:</h1>
-          <h2>{card.cardName}</h2>
+        <div key={i}>
+          <button onClick={this.props.removeCard} id={card._id}>-</button>
+          <h2>{card.cardName} {card.number}</h2>
         </div>
       )
     })
