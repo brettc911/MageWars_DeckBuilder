@@ -48,7 +48,6 @@ class Builder extends Component {
       this.setState({ filteredCards: this.props.cards })
     }
     if (this.state.currentDeck.deckName === '' && this.props.currentDeck !== 0) {
-      console.log('set state!');
       this.setState({ currentDeck: this.props.currentDeck })
     }
 
@@ -70,10 +69,52 @@ class Builder extends Component {
 // Table Functions:
   renderTable() {
     if (this.state.allCards !== null) {
-      return <Table cards={this.state.filteredCards}/>
+      return <Table cards={this.state.filteredCards} addCard={this.addCard}/>
     }
     return <H1>Loading...</H1>
   }
+
+  addCard = e => {
+    let targetCard = null
+
+    this.props.cards.map(card => {
+      if (card._id === e.target.id) {
+        targetCard = card
+        if (!targetCard.number) targetCard.number = 1
+        console.log('card: ', targetCard);
+      }
+    })
+
+    if (this.state.currentDeck.cards.length === 0) {
+      const newDeck = () => {
+        return {...this.state.currentDeck, cards: [targetCard]}
+      }
+      this.setState({ currentDeck: newDeck() })
+    }
+    else {
+      let newCards = []
+
+      let exCard = this.state.currentDeck.cards.filter(card => card._id === targetCard._id)
+      if (exCard.length > 0) {
+        exCard[0].number ++
+        newCards.push(exCard[0])
+      }
+
+      this.state.currentDeck.cards.forEach(card => {
+        if (card._id !== targetCard._id && newCards.length === 0) newCards.push(targetCard)
+        if (card._id !== targetCard._id) newCards.push(card)
+      })
+
+      const newDeck = () => {
+        return {...this.state.currentDeck, cards: newCards}
+      }
+      this.setState({ currentDeck: newDeck()})
+    }
+
+  }
+
+
+
 // Deck info Functions:
 handleDeckNameChange = e => {
   const newDeckName = () => {
@@ -100,6 +141,7 @@ handleDeckNameChange = e => {
           handleMageChange={this.handleMageChange}
           deckName={this.state.currentDeck.deckName}
           mage={this.state.currentDeck.mage}
+          cards={this.state.currentDeck.cards}
         />
       </div>
     );

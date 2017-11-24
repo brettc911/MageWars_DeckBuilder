@@ -9,6 +9,19 @@ const Container = styled.div`
 
 class DeckInfo extends Component {
 
+  renderCards(){
+    let cards = []
+    cards = this.props.cards.map(card => {
+      return(
+        <div>
+          <h1>Name:</h1>
+          <h2>{card.cardName}</h2>
+        </div>
+      )
+    })
+    return cards
+  }
+
   renderDeckInfo(){
     return (
         <Container>
@@ -17,6 +30,8 @@ class DeckInfo extends Component {
           <input onChange={this.props.handleDeckNameChange} value={this.props.deckName}/>
           <label>Mage</label>
           <input onChange={this.props.handleMageChange} value={this.props.mage} />
+          <label>Cards</label>
+          {this.renderCards()}
         </Container>
     )
   }
