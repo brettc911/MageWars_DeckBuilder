@@ -5,23 +5,37 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 
+import logo from '../styles/images/logo.svg'
+
 // BEGIN STYING
 // __________________________________________________________
 
 const Header = styled.div`
   height: 100px;
-  background: #000;
+  background: #303030;
+  padding: 0 100px;
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   ul{
     display: flex;
     flex-direction: row;
   }
   a{
-    color: #fff;
-    margin: 50px;
+    color: #979797;
+    margin: 0 30px;
+    &:hover{
+      color: white;
+    }
   }
+`
+const Logo = styled.div`
+  background-image: url(${logo});
+  background-size: cover;
+  background-position: center;
+  height: 48px;
+  width: 50px;
 `
 
 
@@ -31,6 +45,7 @@ class Navigation extends Component {
     return (
       <div>
         <Header>
+          <Logo></Logo>
           <ul>
             <li><Link to='/'>Home</Link></li>
             <li><Link to='/cards'>Cards</Link></li>

@@ -13,7 +13,6 @@ import Filter from '../components/Filter'
 import DeckInfo from '../components/DeckInfo'
 
 // Import images
-import mw_background_1 from '../styles/images/mw_background_1.jpg'
 
 // BEGIN STYING
 // _________________________________________________________
@@ -105,6 +104,7 @@ class Builder extends Component {
         if (card._id !== targetCard._id) newCards.push(card)
       })
 
+      newCards = newCards.sort((a,b) => {return (a.cardName > b.cardName) ? 1 : ((b.cardName > a.cardName) ? -1 : 0);} );
       const newDeck = () => {
         return {...this.state.currentDeck, cards: newCards}
       }
@@ -126,6 +126,7 @@ class Builder extends Component {
       newCards.push(this.state.currentDeck.cards[0])
     }
 
+    newCards = newCards.sort((a,b) => {return (a.cardName > b.cardName) ? 1 : ((b.cardName > a.cardName) ? -1 : 0);} );
     newCards = newCards.filter(card => card.number > 0)
     const newDeck = () => {
       return {...this.state.currentDeck, cards: newCards}
