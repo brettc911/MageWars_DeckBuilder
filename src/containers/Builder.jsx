@@ -39,6 +39,7 @@ class Builder extends Component {
   componentWillMount(){
     this.props.fetchCards()
 
+
   }
 
   componentDidUpdate(){
@@ -59,16 +60,36 @@ class Builder extends Component {
   }
 
 // Filter Functions:
-  searchData = (e) => {
+  searchData = e => {
     let newCards = this.state.allCards.filter((card) => {
       return card.cardName.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
     })
     this.setState({ filteredCards: newCards })
   }
+
+  sortTable = column => {
+    let cards = this.state.filteredCards
+    let sortedTable = []
+    column === 'manaCost' ? sortedTable = cards.sort((a,b) => {return parseFloat(a.manaCost) - parseFloat(b.manaCost)}) : null
+    column === 'cardName' ? sortedTable = cards.sort((a,b) => {return a.cardName.localeCompare(b.cardName)}) : null
+    column === 'primaryType' ? sortedTable = cards.sort((a,b) => {return a.primaryType.localeCompare(b.primaryType)}) : null
+    column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
+    column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
+    column === 'school' ? sortedTable = cards.sort((a,b) => {return a.schools[0].name.localeCompare(b.schools[0].name)}) : null
+    this.setState({ filteredCards: sortedTable })
+  }
+
+
 // Table Functions:
   renderTable() {
     if (this.state.allCards !== null) {
-      return <Table cards={this.state.filteredCards} addCard={this.addCard}/>
+      return (
+        <Table
+          cards={this.state.filteredCards}
+          addCard={this.addCard}
+          sortTable={this.sortTable}
+        />
+      )
     }
     return <H1>Loading...</H1>
   }

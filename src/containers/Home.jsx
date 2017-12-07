@@ -8,6 +8,7 @@ import logo from '../styles/images/logo.svg'
 // BEGIN STYING
 // _________________________________________________________
 const Background = styled.div`
+  font-family: 'Dosis', sans-serif;
   background-image: url(${background1});
   background-position: center;
   background-repeat: no-repeat;
@@ -19,7 +20,7 @@ const Background = styled.div`
   align-items: center;
   img {
     margin: 80px 0 20px 0;
-    width: 170px;
+    width: 110px;
   }
   a {
     color: #fff;
@@ -34,33 +35,33 @@ const Background = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 260px;
+  width: 230px;
   margin-bottom: 30px;
   label {
+    font-size: 16px;
     color: #67FF83;
-    font-size: 18px;
   }
   input {
+    font-size: 16px;
     margin: 5px 0 30px 0;
     background: none;
     border: solid 2px #67FF83;
-    height: 43px;
+    height: 35px;
     width: 94%;
     color: white;
-    font-size: 18px;
     padding-left: 10px;
   }
   button {
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 8px 15px;
     background: none;
     outline: none;
     border: solid 2px #67FF83;
-    font-size: 18px;
+    font-size: 16px;
     color: #67FF83;
     &:hover {
-      border: solid 2px #fff;
-      color: #fff;
+      background: #67FF83;
+      color: #303030;
       cursor: pointer;
     }
   }
@@ -70,7 +71,9 @@ const Magestack = styled.h1`
   font-size: 32px;
   color: #67FF83;
   letter-spacing: 10px;
-  margin-bottom: 30px;
+  padding-left: 10px;
+  margin-bottom: 45px;
+  font-family: 'Cinzel', serif;
 `
 
 class Home extends Component {

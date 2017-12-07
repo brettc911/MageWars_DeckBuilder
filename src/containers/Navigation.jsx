@@ -23,6 +23,7 @@ const Header = styled.div`
     flex-direction: row;
   }
   a{
+    font-family: 'Dosis', sans-serif;
     color: #979797;
     margin: 0 30px;
     &:hover{
@@ -34,8 +35,8 @@ const Logo = styled.div`
   background-image: url(${logo});
   background-size: cover;
   background-position: center;
-  height: 48px;
-  width: 50px;
+  height: 29px;
+  width: 30px;
 `
 
 

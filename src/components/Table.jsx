@@ -18,9 +18,11 @@ class Table extends Component {
           <td>{card.primaryType}</td>
           <Center>{card.manaCost}</Center>
           <Center>{card.action}</Center>
-          <td>{card.schools.map((type, idea) => {
-            return (` ${type.name}: ${type.level}`)
-          })}</td>
+          <td>
+            {card.schools.map((type, idea) => {
+              return (` ${type.name}: ${type.level}`)
+            })}
+          </td>
 
         </tr>
       )
@@ -33,11 +35,11 @@ class Table extends Component {
       <table className='primary-table'>
         <tbody>
           <tr>
-            <th>Card Name</th>
-            <th>Primary Type</th>
-            <th>Mana Cost</th>
-            <th>Action</th>
-            <th>School</th>
+            <th onClick={() => {this.props.sortTable('cardName')}}>Card Name</th>
+            <th onClick={() => {this.props.sortTable('primaryType')}}>Primary Type</th>
+            <th onClick={() => {this.props.sortTable('manaCost')}}>Mana Cost</th>
+            <th onClick={() => {this.props.sortTable('action')}}>Action</th>
+            <th onClick={() => {this.props.sortTable('school')}}>School</th>
           </tr>
           {this.renderRow()}
         </tbody>
