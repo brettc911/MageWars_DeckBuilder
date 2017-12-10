@@ -28,6 +28,7 @@ class Builder extends Component {
     this.state = {
       allCards: null,
       filteredCards: null,
+      sorted: false,
       currentDeck: {
         deckName: '',
         mage: '',
@@ -54,9 +55,7 @@ class Builder extends Component {
   }
 
   clickme = () => {
-    console.log('all cards', this.state.allCards);
-    console.log('filtered Cards', this.state.filteredCards);
-    console.log('current deck', this.state.currentDeck);
+    console.log(this.state)
   }
 
 // Filter Functions:
@@ -70,15 +69,19 @@ class Builder extends Component {
   sortTable = column => {
     let cards = this.state.filteredCards
     let sortedTable = []
-    column === 'manaCost' ? sortedTable = cards.sort((a,b) => {return parseFloat(a.manaCost) - parseFloat(b.manaCost)}) : null
-    column === 'cardName' ? sortedTable = cards.sort((a,b) => {return a.cardName.localeCompare(b.cardName)}) : null
-    column === 'primaryType' ? sortedTable = cards.sort((a,b) => {return a.primaryType.localeCompare(b.primaryType)}) : null
-    column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
-    column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
-    column === 'school' ? sortedTable = cards.sort((a,b) => {return a.schools[0].name.localeCompare(b.schools[0].name)}) : null
+    if (this.state.sorted === column) {
+      sortedTable = cards.reverse()
+    } else {
+      column === 'manaCost' ? sortedTable = cards.sort((a,b) => {return parseFloat(a.manaCost) - parseFloat(b.manaCost)}) : null
+      column === 'cardName' ? sortedTable = cards.sort((a,b) => {return a.cardName.localeCompare(b.cardName)}) : null
+      column === 'primaryType' ? sortedTable = cards.sort((a,b) => {return a.primaryType.localeCompare(b.primaryType)}) : null
+      column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
+      column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
+      column === 'school' ? sortedTable = cards.sort((a,b) => {return a.schools[0].name.localeCompare(b.schools[0].name)}) : null
+    }
+    this.setState({ sorted: column })
     this.setState({ filteredCards: sortedTable })
   }
-
 
 // Table Functions:
   renderTable() {

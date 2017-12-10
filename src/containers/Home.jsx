@@ -14,7 +14,7 @@ const Background = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  min-height: 89vh;
+  min-height: 88vh;
   display: flex;
   flex-direction: column;
   align-items: center;
