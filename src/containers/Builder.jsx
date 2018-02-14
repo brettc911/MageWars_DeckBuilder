@@ -39,29 +39,86 @@ class Builder extends Component {
 
   componentWillMount(){
     this.props.fetchCards()
-
-
   }
 
   componentDidUpdate(){
-    if (this.state.allCards == null) {
+    if (this.state.allCards === null) {
       this.setState({ allCards: this.props.cards })
       this.setState({ filteredCards: this.props.cards })
     }
     if (this.state.currentDeck.deckName === '' && this.props.currentDeck !== 0) {
       this.setState({ currentDeck: this.props.currentDeck })
     }
-
   }
 
-  clickme = () => {
+  clickme = e => {
     console.log(this.state)
   }
 
 // Filter Functions:
-  searchData = e => {
+
+// if there is a name filter
+//   check for name, if its not passing the fitler return false
+// if there is a type filter set
+//   check for type, if not passing the filter return false
+//
+// return true
+
+
+  handleFiltering = e => {
+
+    let filters = {
+      searchName: (value, cards) => {
+        debugger
+         let newCards = cards.filter((card) => {
+           return card.cardName.toLowerCase().indexOf(value.toLowerCase()) !== -1
+         })
+         this.setState({ filteredCards: newCards })
+       },
+
+      searchDetails: (value, cards) => {
+        let newCards = cards.filter((card) => {
+          return card.details.toLowerCase().indexOf(value.toLowerCase()) !== -1
+        })
+        this.setState({ filteredCards: newCards })
+      }
+    }
+
+    let filteredCards = []
+    let activeFilters = []
+    let activeFiltersValues = []
+    let allCards = this.state.allCards
+    let filterName = e.target.id
+    let filterValue = e.target.value
+
+
+    let getActiveFilters = () => {
+      let filterElements = document.querySelectorAll('.filter');
+      filterElements.forEach(element => {
+        if (element.value) {
+          activeFilters.push(element.id)
+          activeFiltersValues.push(element.value)
+        }
+      })
+    }
+
+    getActiveFilters()
+
+    for (var i = 0; i < activeFilters.length; i++) {
+      let cards = undefined
+      i === 0 ? cards = this.state.allCards : cards = this.state.filteredCards
+      filters[activeFilters[i]](activeFiltersValues[i], cards)
+    }
+
+    activeFiltersValues.length === 0 ? this.setState({ filteredCards: this.state.allCards }) : null
+  }
+
+
+
+
+  selectPrimaryType = e => {
     let newCards = this.state.allCards.filter((card) => {
-      return card.cardName.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1
+      return card.primaryType === e.target.value
     })
     this.setState({ filteredCards: newCards })
   }
@@ -78,6 +135,7 @@ class Builder extends Component {
       column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
       column === 'action' ? sortedTable = cards.sort((a,b) => {return a.action.localeCompare(b.action)}) : null
       column === 'school' ? sortedTable = cards.sort((a,b) => {return a.schools[0].name.localeCompare(b.schools[0].name)}) : null
+      column === 'level' ? sortedTable = cards.sort((a,b) => {return a.schools[0].level.localeCompare(b.schools[0].level)}) : null
     }
     this.setState({ sorted: column })
     this.setState({ filteredCards: sortedTable })
@@ -179,7 +237,11 @@ handleDeckNameChange = e => {
     return (
       <div className='container'>
         <button onClick={this.clickme}>View State</button>
-        <Filter searchData={this.searchData}/>
+        <Filter
+          searchName={this.handleFiltering}
+          searchDetails={this.handleFiltering}
+          selectPrimaryType={this.handleFiltering}
+        />
         {this.renderTable()}
         <DeckInfo
           handleDeckNameChange={this.handleDeckNameChange}

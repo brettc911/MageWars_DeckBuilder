@@ -14,7 +14,17 @@ class Filter extends Component {
       <div>
         <Search>
           <h1>Search:</h1>
-          <input onChange={this.props.searchData} placeholder='Search card name'/>
+          <input class="filter" id='searchName' onChange={this.props.searchName} placeholder='Search card name' /> <br></br>
+          <input class="filter" id='searchDetails' onChange={this.props.searchDetails} placeholder='Search details' />
+          <select class="filter" id='searchPrimaryType' onChange={this.props.selectPrimaryType}>
+            <option value=''>All</option>
+            <option value='Attack'>Attack</option>
+            <option value='Creature'>Creature</option>
+            <option value='Conjuration'>Conjuration</option>
+            <option value='Enchantment'>Enchantment</option>
+            <option value='Equipment'>Equipment</option>
+            <option value='Incantation'>Incantation</option>
+          </select>
         </Search>
       </div>
     )

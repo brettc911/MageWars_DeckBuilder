@@ -4,7 +4,13 @@ import styled from 'styled-components'
 const Center = styled.td`
   text-align: center;
   text-transform: capitalize;
+`
 
+const Level = styled.span`
+  border: solid 1px black;
+  border-radius: 10px;
+  padding: 2px;
+  margin: 0 1px;
 `
 
 class Table extends Component {
@@ -20,9 +26,15 @@ class Table extends Component {
           <Center>{card.action}</Center>
           <td>
             {card.schools.map((type, idea) => {
-              return (` ${type.name}: ${type.level}`)
+              return (`${type.name} `)
             })}
           </td>
+          <Center>
+            {card.schools.map((type, idea) => {
+              return <Level>{type.level}</Level>
+            })}
+          </Center>
+
 
         </tr>
       )
@@ -40,6 +52,7 @@ class Table extends Component {
             <th onClick={() => {this.props.sortTable('manaCost')}}>Mana Cost</th>
             <th onClick={() => {this.props.sortTable('action')}}>Action</th>
             <th onClick={() => {this.props.sortTable('school')}}>School</th>
+            <th onClick={() => {this.props.sortTable('level')}}>Level</th>
           </tr>
           {this.renderRow()}
         </tbody>

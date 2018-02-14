@@ -7,9 +7,12 @@ import logo from '../styles/images/logo.svg'
 
 // BEGIN STYING
 // _________________________________________________________
+
+const backgroundImg = `background-image: url(${background1});`
+
 const Background = styled.div`
   font-family: 'Dosis', sans-serif;
-  background-image: url(${background1});
+  ${backgroundImg};
   background-position: center;
   background-repeat: no-repeat;
   background-position: center;
