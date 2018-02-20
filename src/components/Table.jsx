@@ -25,13 +25,13 @@ class Table extends Component {
           <Center>{card.manaCost}</Center>
           <Center>{card.action}</Center>
           <td>
-            {card.schools.map((type, idea) => {
+            {card.schools.map((type) => {
               return (`${type.name} `)
             })}
           </td>
           <Center>
-            {card.schools.map((type, idea) => {
-              return <Level>{type.level}</Level>
+            {card.schools.map((type, y) => {
+              return <Level key={y}>{type.level}</Level>
             })}
           </Center>
 

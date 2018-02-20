@@ -55,73 +55,40 @@ class Builder extends Component {
     console.log(this.state)
   }
 
-// Filter Functions:
-
-// if there is a name filter
-//   check for name, if its not passing the fitler return false
-// if there is a type filter set
-//   check for type, if not passing the filter return false
-//
-// return true
-
 
   handleFiltering = e => {
-
-    let filters = {
-      searchName: (value, cards) => {
-        debugger
-         let newCards = cards.filter((card) => {
-           return card.cardName.toLowerCase().indexOf(value.toLowerCase()) !== -1
-         })
-         this.setState({ filteredCards: newCards })
-       },
-
-      searchDetails: (value, cards) => {
-        let newCards = cards.filter((card) => {
-          return card.details.toLowerCase().indexOf(value.toLowerCase()) !== -1
-        })
-        this.setState({ filteredCards: newCards })
-      }
-    }
-
-    let filteredCards = []
-    let activeFilters = []
-    let activeFiltersValues = []
-    let allCards = this.state.allCards
-    let filterName = e.target.id
-    let filterValue = e.target.value
-
-
-    let getActiveFilters = () => {
-      let filterElements = document.querySelectorAll('.filter');
-      filterElements.forEach(element => {
-        if (element.value) {
-          activeFilters.push(element.id)
-          activeFiltersValues.push(element.value)
-        }
+    let selectPrimaryType = (cards) => {
+      let value = document.querySelector('#selectPrimaryType').value
+      if (!value) return cards
+      let newCards = cards.filter((card) => {
+        return card.primaryType === value
       })
+      return newCards
     }
-
-    getActiveFilters()
-
-    for (var i = 0; i < activeFilters.length; i++) {
-      let cards = undefined
-      i === 0 ? cards = this.state.allCards : cards = this.state.filteredCards
-      filters[activeFilters[i]](activeFiltersValues[i], cards)
+    let searchName = (cards) => {
+      let value = document.querySelector('#searchName').value
+      if (!value) return cards
+      let newCards = cards.filter((card) => {
+         return card.cardName.toLowerCase().indexOf(value.toLowerCase()) !== -1
+       })
+      return newCards
+     }
+    let searchDetails = (cards) => {
+      let value = document.querySelector('#searchDetails').value
+      if (!value) return cards
+      let newCards = cards.filter((card) => {
+        return card.details.toLowerCase().indexOf(value.toLowerCase()) !== -1
+      })
+      return newCards
     }
-
-    activeFiltersValues.length === 0 ? this.setState({ filteredCards: this.state.allCards }) : null
+    let filterResults = searchDetails(searchName(selectPrimaryType(this.state.allCards)))
+    this.setState({ filteredCards: filterResults })
   }
 
 
 
 
-  selectPrimaryType = e => {
-    let newCards = this.state.allCards.filter((card) => {
-      return card.primaryType === e.target.value
-    })
-    this.setState({ filteredCards: newCards })
-  }
+
 
   sortTable = column => {
     let cards = this.state.filteredCards
