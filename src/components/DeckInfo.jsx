@@ -27,11 +27,12 @@ class DeckInfo extends Component {
         <Container>
           <h1>Deck Info</h1>
           <label>Deck Name</label>
-          <input onChange={this.props.handleDeckNameChange} value={this.props.deckName}/>
+          <input onChange={this.props.deckNameChange} value={this.props.deckName}/>
           <label>Mage</label>
-          <input onChange={this.props.handleMageChange} value={this.props.mage} />
+          <input onChange={this.props.mageChange} value={this.props.mage} />
           <label>Cards</label>
           {this.renderCards()}
+          <button onClick={this.props.saveDeck}>Save Deck</button>
         </Container>
     )
   }

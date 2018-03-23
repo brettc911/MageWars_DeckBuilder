@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import cardReducer from '../reducers/cardReducer';
 import deckReducer from '../reducers/deckReducer';
 import { fetchCards } from '../actions'
+import { autoSave } from '../actions'
 
 // Import Components
 import Table from '../components/Table'
@@ -30,6 +31,7 @@ class Builder extends Component {
       filteredCards: null,
       sorted: false,
       currentDeck: {
+        _id: '',
         deckName: '',
         mage: '',
         cards: []
@@ -37,7 +39,7 @@ class Builder extends Component {
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchCards()
   }
 
@@ -57,7 +59,7 @@ class Builder extends Component {
 
 
   handleFiltering = e => {
-    let selectPrimaryType = (cards) => {
+    let selectPrimaryType = cards => {
       let value = document.querySelector('#selectPrimaryType').value
       if (!value) return cards
       let newCards = cards.filter((card) => {
@@ -65,7 +67,7 @@ class Builder extends Component {
       })
       return newCards
     }
-    let searchName = (cards) => {
+    let searchName = cards => {
       let value = document.querySelector('#searchName').value
       if (!value) return cards
       let newCards = cards.filter((card) => {
@@ -73,7 +75,7 @@ class Builder extends Component {
        })
       return newCards
      }
-    let searchDetails = (cards) => {
+    let searchDetails = cards => {
       let value = document.querySelector('#searchDetails').value
       if (!value) return cards
       let newCards = cards.filter((card) => {
@@ -84,10 +86,6 @@ class Builder extends Component {
     let filterResults = searchDetails(searchName(selectPrimaryType(this.state.allCards)))
     this.setState({ filteredCards: filterResults })
   }
-
-
-
-
 
 
   sortTable = column => {
@@ -193,12 +191,19 @@ handleDeckNameChange = e => {
   this.setState({ currentDeck: newDeckName() })
 }
 
-  handleMageChange = e => {
-    const newMage = () => {
-      return {...this.state.currentDeck, mage: e.target.value}
-    }
-    this.setState({ currentDeck: newMage() })
+handleMageChange = e => {
+  const newMage = () => {
+    return {...this.state.currentDeck, mage: e.target.value}
   }
+  this.setState({ currentDeck: newMage() })
+}
+
+handleSaveDeck = e => {
+  let deck = this.state.currentDeck
+  console.log(deck);
+  let id = this.props.currentDeck._id
+  this.props.autoSave(deck, id)
+}
 
   render() {
     return (
@@ -211,15 +216,16 @@ handleDeckNameChange = e => {
         />
         {this.renderTable()}
         <DeckInfo
-          handleDeckNameChange={this.handleDeckNameChange}
-          handleMageChange={this.handleMageChange}
+          deckNameChange={this.handleDeckNameChange}
+          mageChange={this.handleMageChange}
           deckName={this.state.currentDeck.deckName}
           mage={this.state.currentDeck.mage}
           cards={this.state.currentDeck.cards}
           removeCard={this.removeCard}
+          saveDeck={this.handleSaveDeck}
         />
       </div>
-    );
+    )
   }
 }
 
@@ -229,4 +235,4 @@ const mapStateToProps = state => {
     currentDeck: state.decks.currentDeck
   }
 }
-export default connect(mapStateToProps, { fetchCards })(Builder)
+export default connect(mapStateToProps, { fetchCards, autoSave })(Builder)

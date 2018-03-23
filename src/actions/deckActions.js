@@ -48,12 +48,12 @@ export const createDeck = (deck) => {
 
 
 
-export const autoSave = (saveDeck, id) => {
-  let deck = JSON.stringify(saveDeck)
+export const autoSave = (deck, id) => {
+  let savedDeck = JSON.stringify(deck)
   return (dispatch) => {
     fetch(`https://secret-gorge-71512.herokuapp.com/api/deck/${id}`, {
       method: 'POST',
-      body: deck,
+      body: savedDeck,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ export const autoSave = (saveDeck, id) => {
     .then(data => {
       console.log(data.result);
       return dispatch({
-        type: CREATE_DECK,
+        type: AUTO_SAVE,
         payload: data.result
       })
     })

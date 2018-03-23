@@ -33,7 +33,6 @@ class BuilderGateway extends Component {
   handleDeckMageChange = (e) => {
     this.setState({ mage: e.target.value})
   }
-
   createDeck = () => {
     this.props.createDeck(this.state)
   }
