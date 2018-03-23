@@ -88,6 +88,20 @@ class Builder extends Component {
   }
 
 
+// Table Functions:
+  renderTable() {
+    if (this.state.allCards !== null) {
+      return (
+        <Table
+          cards={this.state.filteredCards}
+          addCard={this.addCard}
+          sortTable={this.sortTable}
+        />
+      )
+    }
+    return <H1>Loading...</H1>
+  }
+
   sortTable = column => {
     let cards = this.state.filteredCards
     let sortedTable = []
@@ -104,20 +118,6 @@ class Builder extends Component {
     }
     this.setState({ sorted: column })
     this.setState({ filteredCards: sortedTable })
-  }
-
-// Table Functions:
-  renderTable() {
-    if (this.state.allCards !== null) {
-      return (
-        <Table
-          cards={this.state.filteredCards}
-          addCard={this.addCard}
-          sortTable={this.sortTable}
-        />
-      )
-    }
-    return <H1>Loading...</H1>
   }
 
   addCard = e => {
@@ -214,16 +214,26 @@ handleSaveDeck = e => {
           searchDetails={this.handleFiltering}
           selectPrimaryType={this.handleFiltering}
         />
-        {this.renderTable()}
-        <DeckInfo
-          deckNameChange={this.handleDeckNameChange}
-          mageChange={this.handleMageChange}
-          deckName={this.state.currentDeck.deckName}
-          mage={this.state.currentDeck.mage}
-          cards={this.state.currentDeck.cards}
-          removeCard={this.removeCard}
-          saveDeck={this.handleSaveDeck}
-        />
+        <div className="side_by_side">
+          {
+            this.state.allCards ?
+            <Table
+            cards={this.state.filteredCards}
+            addCard={this.addCard}
+            sortTable={this.sortTable}
+            /> :
+            <H1>Loading...</H1>
+          }
+          <DeckInfo
+            deckNameChange={this.handleDeckNameChange}
+            mageChange={this.handleMageChange}
+            deckName={this.state.currentDeck.deckName}
+            mage={this.state.currentDeck.mage}
+            cards={this.state.currentDeck.cards}
+            removeCard={this.removeCard}
+            saveDeck={this.handleSaveDeck}
+          />
+        </div>
       </div>
     )
   }

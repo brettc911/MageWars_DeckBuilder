@@ -1,45 +1,21 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 
-const Center = styled.td`
-  text-align: center;
-  text-transform: capitalize;
-`
-
-const Level = styled.span`
-  border: solid 1px black;
-  border-radius: 10px;
-  padding: 2px;
-  margin: 0 1px;
-`
+import TableRow from './TableRow'
 
 class Table extends Component {
 
-
-  renderRow() {
-    let row = this.props.cards.map((card, i) => {
+  renderRows() {
+    let rows = this.props.cards.map((card, i) => {
       return (
-        <tr key={i}>
-          <td><button onClick={this.props.addCard} id={card._id}>+</button> {card.cardName}</td>
-          <td>{card.primaryType}</td>
-          <Center>{card.manaCost}</Center>
-          <Center>{card.action}</Center>
-          <td>
-            {card.schools.map((type) => {
-              return (`${type.name} `)
-            })}
-          </td>
-          <Center>
-            {card.schools.map((type, y) => {
-              return <Level key={y}>{type.level}</Level>
-            })}
-          </Center>
-
-
-        </tr>
+        <TableRow
+          key={i}
+          addCard={this.props.addCard}
+          card={card}
+        />
       )
     })
-    return row
+    return rows
   }
 
   render() {
@@ -54,14 +30,11 @@ class Table extends Component {
             <th onClick={() => {this.props.sortTable('school')}}>School</th>
             <th onClick={() => {this.props.sortTable('level')}}>Level</th>
           </tr>
-          {this.renderRow()}
+          {this.renderRows()}
         </tbody>
       </table>
     )
   }
-
-
-
 }
 
 export default Table;

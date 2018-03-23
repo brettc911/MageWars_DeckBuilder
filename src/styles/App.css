@@ -36,8 +36,8 @@ ______PRIMARY TABLE_______
 --------------------------
 */
 .primary-table{
-  margin: auto;
   background: #fff;
+
 }
 .primary-table td {
   padding: 5px;
@@ -49,4 +49,13 @@ ______PRIMARY TABLE_______
 }
 .primary-table td {
   padding: 5px 20px;
+}
+
+
+
+
+
+.side_by_side {
+  display: flex;
+  flex-direction: row;
 }
